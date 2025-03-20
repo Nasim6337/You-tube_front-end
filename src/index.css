@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.loader-container {
+  z-index: 100;
+  position: absolute;
+  translate: 48vw 50vh;
+  background-color:transparent;
+}
+
+.loader {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border: 8px solid transparent;
+  border-radius: 50%;
+  border-top: 8px solid #6c63ff;
+  animation: spin 1.2s linear infinite;
+}
+
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
