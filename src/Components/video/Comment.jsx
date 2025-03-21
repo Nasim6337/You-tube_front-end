@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 function Comment({video,videoId}) {
     const [show,setShow]=useState(false);
     const [comment,setComment]=useState('');
@@ -9,14 +9,14 @@ function Comment({video,videoId}) {
     const handleComment=(e)=>{
         e.preventDefault();
         console.log(comment)
-        axios.post("/api-v1/comment/createComment",{comment,
+        axios.post(`${baseurl}/api-v1/comment/createComment`,{comment,
             videoId
         })
         
     }//function end here
 
     useEffect(()=>{
-        axios.post('/api-v1/comment/comments',{videoId})
+        axios.post(`${baseurl}/api-v1/comment/comments`,{videoId})
         .then((Response)=>{
             
                 setComments(Response.data.comments);    

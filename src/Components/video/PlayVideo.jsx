@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import "boxicons";
 import Comment from "./Comment";
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 
 function PlayVideo() {
   const { videoId } = useParams();
@@ -15,7 +16,7 @@ function PlayVideo() {
   useEffect(() => {
     // Fetch video details
     axios
-      .post("/api-v1/video/getVideoDetail", { videoid: videoId })
+      .post(`${baseurl}/api-v1/video/getVideoDetail`, { videoid: videoId })
       .then((response) => {
         setVideo(response.data.video);
       })
@@ -25,7 +26,7 @@ function PlayVideo() {
 
     // Check subscription status
     axios
-      .post("/api-v1/user/manageSubscriptions", { videoId, status: false })
+      .post(`${baseurl}/api-v1/user/manageSubscriptions`, { videoId, status: false })
       .then((response) => {
         setSubscribedStatus(response.data.status);
       })
@@ -35,7 +36,7 @@ function PlayVideo() {
 
     // Fetch subscriber count
     axios
-      .post("/api-v1/user/getSubscribers", { videoId })
+      .post(`${baseurl}/api-v1/user/getSubscribers`, { videoId })
       .then((response) => {
         setSubscribers(response.data.totalSubscriber || 0);
       })
@@ -46,7 +47,7 @@ function PlayVideo() {
 
   const handleSubscribe = () => {
     axios
-      .post("/api-v1/user/manageSubscriptions", { videoId, status: true })
+      .post(`${baseurl}/api-v1/user/manageSubscriptions`, { videoId, status: true })
       .then((response) => {
         setSubscribedStatus(response.data.status);
         

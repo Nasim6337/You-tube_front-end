@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
-
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 function Header() {
 
   const [userLoggedIn, setUserLoggedIn]=useState();
@@ -12,7 +12,7 @@ function Header() {
   const navigate=useNavigate();
 
   useEffect(()=>{
-    axios.get("/api-v1/user/getUser")
+    axios.get(`${baseurl}/api-v1/user/getUser`)
     .then((Response)=>{
       setUserAvatar(Response.data.user)
     })
@@ -21,7 +21,7 @@ function Header() {
 
 
   const logout=()=>{
-    axios.post("/api-v1/user/logout",{})
+    axios.post(`${baseurl}/api-v1/user/logout`,{})
     .then((Response)=>{
       const data=Response.data;
       if(data.success){

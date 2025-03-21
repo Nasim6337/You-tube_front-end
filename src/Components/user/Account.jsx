@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "boxicons";
 import axios from "axios";
-import Setting from "../Setting";
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const deleteVideo=(videoId)=>{
-  axios.post('/api-v1/video/deleteVideo',{videoId})
+  axios.post(`${baseUrl}/api-v1/video/deleteVideo`,{videoId})
   .then((Response)=>{
   })
   .catch((error)=>{
     console.log(error.response.data)
   })
 }
+
 
 function Account() {
   const [historyVideos, setHistoryVideos] = useState(null);
@@ -24,7 +25,7 @@ function Account() {
   useEffect(() => {
     //fetching user details
     axios
-      .get("/api-v1/user/getUser")
+      .get(`${baseUrl}/api-v1/user/getUser`)
       .then((Response) => {
         const data = Response.data;
         if (data.status) {
@@ -38,7 +39,7 @@ function Account() {
 
     //fetching watch history videos
     axios
-      .get("/api-v1/user/getWatchHistoryVideo")
+      .get(`${baseUrl}/api-v1/user/getWatchHistoryVideo`)
       .then((Response) => {
         setHistoryVideos(Response.data.HistoryVideo);
       })
@@ -52,7 +53,7 @@ function Account() {
 
     // subscribed fetching call
     axios
-      .get("/api-v1/user/getsubscribed")
+      .get(`${baseUrl}/api-v1/user/getsubscribed`)
       .then((Response) => {
         setSubscribed(Response.data);
       })
@@ -66,7 +67,7 @@ function Account() {
 
 useEffect(()=>{
   axios
-  .get("/api-v1/video/myVideos")
+  .get(`${baseUrl}/api-v1/video/myVideos`)
   .then((Response) => {
     setMyVideos(Response.data.videos);
   })
@@ -78,7 +79,7 @@ useEffect(()=>{
   useEffect(() => {
     if (myVideos?.length > 0) {
       axios
-        .post("/api-v1/user/getSubscribers", {
+        .post(`${baseUrl}/api-v1/user/getSubscribers`, {
           videoId: myVideos[0]._id,
         })
         .then((Response) => {
@@ -170,7 +171,7 @@ function HistoryVideos({ historyVideo }) {
   const [owner, setOwner] = useState([]);
   useEffect(() => {
     axios
-      .post("/api-v1/video/getVideoDetail", {
+      .post(`${baseUrl}/api-v1/video/getVideoDetail`, {
         videoid: historyVideo.watchHistory._id,
       })
       .then((Response) => {

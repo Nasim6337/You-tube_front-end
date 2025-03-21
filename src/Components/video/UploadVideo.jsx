@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import FlashMessage from "../../../utils/FlashMessage";
 import axios from "axios";
 import Loader from "../../../utils/Loader";
-
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 
 function Profile() {
    const [status, setStatus] = useState(false);
@@ -26,7 +26,7 @@ function Profile() {
 
 useEffect(()=>{
   axios
-  .get("/api-v1/user/getUser")
+  .get(`${baseurl}/api-v1/user/getUser`)
   .then((Response) => {
     const data = Response.data;
     if (data.status) {
@@ -43,7 +43,7 @@ useEffect(()=>{
     setIsLoadng(true);
     e.preventDefault();
     axios
-      .post("/api-v1/video/uploadVideo", formData, {
+      .post(`${baseurl}/api-v1/video/uploadVideo`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((Response) => {

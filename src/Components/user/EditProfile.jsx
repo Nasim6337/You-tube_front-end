@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import FlashMessage from "../../../utils/FlashMessage";
-
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 function EditProfile() {
   const [avatar, setAvatar] = useState("");
   const [coverImage, setCoverImage] = useState("");
@@ -14,7 +14,7 @@ function EditProfile() {
   const updateProfile = (e) => {
     e.preventDefault();
     axios
-      .patch("/api-v1/user/editProfile", formData, {
+      .patch(`${baseurl}/api-v1/user/editProfile`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

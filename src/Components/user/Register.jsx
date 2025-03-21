@@ -26,7 +26,7 @@ function Register() {
     const register=(e)=>{
     e.preventDefault();
     
-    axios.post("/api-v1/user/register",formData,{
+    axios.post(`${import.meta.env.VITE_API_BASE_URL}/api-v1/user/register`,formData,{
       headers: 
       { 'Content-Type': 'multipart/form-data', },
     })

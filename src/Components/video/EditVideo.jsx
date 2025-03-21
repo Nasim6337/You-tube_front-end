@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import FlashMessage from "../../../utils/FlashMessage";
 
+const baseurl=import.meta.env.VITE_API_BASE_URL;
+
 function EditVideo() {
   const { videoId } = useParams();
   const [video, setVideo] = useState([]);
@@ -20,7 +22,7 @@ function EditVideo() {
   useEffect(() => {
     //video detail query
     axios
-      .post("/api-v1/video/getVideoDetail", { videoid: videoId })
+      .post(`${baseurl}/api-v1/video/getVideoDetail`, { videoid: videoId })
       .then((Response) => {
         const data = Response.data;
        
@@ -35,7 +37,7 @@ function EditVideo() {
 
   const update=(e)=>{
     e.preventDefault();
-    axios.patch('/api-v1/video/editVideoDetails',formData,{
+    axios.patch(`${baseurl}/api-v1/video/editVideoDetails`,formData,{
         headers:{
             "Content-Type":"multipart/form-data"
         }

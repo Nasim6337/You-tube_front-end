@@ -3,7 +3,7 @@ import React, { useEffect, useState,useContext} from 'react'
 import { NavLink } from 'react-router-dom';
 import Loader from '../../utils/Loader';
 
-
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 
 function Home() {
 
@@ -12,7 +12,7 @@ const [videoOwners,setVideoOwners]=useState();
 
 useEffect(()=>{
 
-    axios.get('/api-v1/video/videos')
+    axios.get(`${baseurl}/api-v1/video/videos`)
     .then((Response)=>{
       const data=Response.data;
       setVideos(data.videos);
@@ -66,9 +66,9 @@ function VideoBox({video,videoowner,time}) {
   const { months, days, hours, years } =time;
 
   const handleWatchHistoryAndViews=()=>{
-    axios.post("/api-v1/user/getWatchHistory",{videoId:video._id})
+    axios.post(`${baseurl}/api-v1/user/getWatchHistory`,{videoId:video._id})
 
-    axios.post("/api-v1/video/manageViews",{videoId:video._id})
+    axios.post(`${baseurl}/api-v1/video/manageViews`,{videoId:video._id})
   }
  
   return (

@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import FlashMessage from '../../../utils/FlashMessage';
 import { useNavigate } from 'react-router-dom';
-
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 
 function ChangePassword() {
     const navigate=useNavigate();
@@ -13,7 +13,7 @@ function ChangePassword() {
 
     const changepassword=(e)=>{
         e.preventDefault();
-        axios.patch('/api-v1/user/changePassword',{oldPassword,newPassword})
+        axios.patch(`${baseurl}/api-v1/user/changePassword`,{oldPassword,newPassword})
         .then((Response)=>{
             setApiStatus(Response.data);
             if(Response.data.status)

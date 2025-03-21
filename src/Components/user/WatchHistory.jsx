@@ -1,11 +1,12 @@
 import React,{useContext,useEffect,useState} from "react";
 import axios from "axios";
+const baseurl=import.meta.env.VITE_API_BASE_URL;
 
 function WatchHistory() {
   const [historyVideos,setHistoryVideos]=useState(null)
 
   useEffect(()=>{
-    axios.get("/api-v1/user/getUser")
+    axios.get(`${baseurl}/api-v1/user/getUser`)
     .then((Response)=>{
       const data=Response.data;
       if(data.status){
@@ -17,7 +18,7 @@ function WatchHistory() {
       console.log("error in user fetching:",error.message);
     })
 
-    axios.get("/api-v1/user/getWatchHistoryVideo")
+    axios.get(`${baseurl}/api-v1/user/getWatchHistoryVideo`)
     .then((Response)=>{
       setHistoryVideos(Response.data.HistoryVideo)
     })
@@ -43,7 +44,7 @@ function Watchhistory({historyVideo}) {
 
   const [owner,setOwner]=useState([]);
   useEffect(()=>{
-    axios.post("/api-v1/video/getVideoDetail",{videoid:historyVideo.watchHistory._id})
+    axios.post(`${baseurl}/api-v1/video/getVideoDetail`,{videoid:historyVideo.watchHistory._id})
     .then((Response)=>{
       const data=Response.data;
       setOwner(data.video.owner);

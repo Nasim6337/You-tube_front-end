@@ -13,7 +13,7 @@ function Login() {
   const login=(e)=>{
     
     e.preventDefault();
-    axios.post("/api-v1/user/login",{
+    axios.post(`${import.meta.env.VITE_API_BASE_URL}/api-v1/user/login`,{
       email,
       password
     })
